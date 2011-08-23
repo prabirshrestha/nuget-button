@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>NuGetButton Sample</title>
+</head>
+<body>
+
+<strong>Add the following javascript code just before the end of the body tag.</strong>
+<pre>
+&lt;script type="text/javascript"&gt;
+    (function () {
+        var nb = document.createElement('script'); nb.type = 'text/javascript'; nb.async = true;
+        nb.src = 'http://s.prabir.me/nuget-button/0.1/nuget-button.min.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(nb, s);
+    })();
+&lt;/script&gt;
+</pre>
+
+<strong>Then add the following html code to get the nuget button rendered.</strong>
+<pre>
+&lt;pre class="nuget-button"&gt;Install-Package Facebook&lt;/pre&gt;
+</pre>
+
+<strong>Samples</strong><br/>
+Fixed Length Sample
+<div style="width: 500px"><pre class="nuget-button">Install-Package Facebook</pre></div>
+
+Full Stretch Sample (default)
+<pre class="nuget-button">Install-Package SimpleJson</pre>
+
+<script type="text/javascript">
+    (function () {
+        var nb = document.createElement('script'); nb.type = 'text/javascript'; nb.async = true;
+        nb.src = 'http://s.prabir.me/nuget-button/0.1/nuget-button.min.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(nb, s);
+    })();
+</script>
+
+</body>
+</html>
