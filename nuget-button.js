@@ -11,7 +11,7 @@
     var 
         document = window.document,
 
-        nugetButtonCssUrl = 'http://s.prabir.me/nuget-button/0.2/nuget-button.min.css',
+        nugetButtonCssUrl = 'http://s.prabir.me/nuget-button/0.2.1/nuget-button.min.css',
 
         installPackageText = 'Install-Package',
 
