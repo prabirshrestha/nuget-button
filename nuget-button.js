@@ -1,16 +1,17 @@
 ﻿/*!
-* NuGetButton JavaScript Library v0.1
+* NuGetButton JavaScript Library v0.2
 * http://github.com/prabirshrestha/nuget-button
 *
 * Copyright 2011, Prabir Shrestha
 * Dual licensed under the MIT or GPL Version 2 licenses.
+* http://github.com/prabirshrestha/nuget-button/license
 *
 */
 (function (window, undefined) {
     var 
         document = window.document,
 
-        nugetButtonCssUrl = 'http://s.prabir.me/nuget-button/0.1/nuget-button.css',
+        nugetButtonCssUrl = 'http://s.prabir.me/nuget-button/0.2/nuget-button.min.css',
 
         installPackageText = 'Install-Package',
 
@@ -38,26 +39,35 @@
             node.appendChild(textNode);
         },
 
+        createElement = function (name) {
+            return document.createElement(name);
+        },
+
+        getData = function (element, name) {
+            return element.getAttribute('data-nugetbutton-' + name);
+        },
+
         loadCss = function (cssUrl) {
             if (document.createStyleSheet) {
                 document.createStyleSheet(cssUrl);
             }
             else {
-                var styleSheet = document.createElement("link");
-                styleSheet.setAttribute("rel", "stylesheet");
-                styleSheet.setAttribute("type", "text/css");
-                styleSheet.setAttribute("href", cssUrl);
-                document.getElementsByTagName("head")[0].appendChild(styleSheet);
+                var styleSheet = createElement('link');
+                styleSheet.setAttribute('rel', 'stylesheet');
+                styleSheet.setAttribute('type', 'text/css');
+                styleSheet.setAttribute('href', cssUrl);
+                document.getElementsByTagName('head')[0].appendChild(styleSheet);
             }
         },
 
         init = function () {
-            var buttons = getElementsByClass('nuget-button', null, 'pre');
-            var totalButtons = buttons.length;
+            var buttons = getElementsByClass('nuget-button', null, 'pre'),
+                totalButtons = buttons.length;
+
             if (totalButtons.length == 0) {
                 return;
             }
-            
+
             loadCss(nugetButtonCssUrl);
             for (var i = 0; i < totalButtons; ++i) {
                 var pre = buttons[i],
@@ -65,25 +75,32 @@
                 if (str.length !== 2 || str[0] !== installPackageText) {
                     continue;
                 }
-                var packageName = str[1];
 
                 var 
-                    commandWrapper = document.createElement('div'),
-                    commandPrompt = document.createElement('div'),
-                    command = document.createElement('p');
+                    link = getData(pre, 'link') || 'true',
+                    packageName = str[1],
+                    commandWrapper = createElement('div'),
+                    commandPrompt = createElement('div'),
+                    command = createElement('p'),
+                    anchor = createElement('a');
 
                 commandWrapper.className = 'nuget-button-commandWrapper';
 
                 commandPrompt.className = 'nuget-button-commandPrompt';
                 commandWrapper.appendChild(commandPrompt);
 
-                text(command, "PM> " + installPackageText + ' ' + packageName);
                 command.className = 'nuget-button-command';
+                text(command, "PM> " + installPackageText + ' ');
+                if (link === 'false') {
+                    text(command, packageName);
+                } else {
+                    anchor.setAttribute('href', link === 'true' ? 'http://nuget.org/List/Packages/' + packageName : link);
+                    text(anchor, packageName);
+                    command.appendChild(anchor);
+                }
                 commandPrompt.appendChild(command);
-
                 pre.parentNode.replaceChild(commandWrapper, pre);
             }
-
         };
 
     init();
