@@ -72,7 +72,7 @@
             for (var i = 0; i < totalButtons; ++i) {
                 var pre = buttons[i],
                     str = pre.innerHTML.split(' ');
-                if (str.length !== 2 || str[0] !== installPackageText) {
+                if (str[0] !== installPackageText) {
                     continue;
                 }
 
