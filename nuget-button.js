@@ -38,7 +38,13 @@
             var textNode = document.createTextNode(textContent);
             node.appendChild(textNode);
         },
-
+        appendOtherCharacters = function(element, array) {
+            for(var index = 2; index < array.length; index++)
+            {
+                var str = ' ' + array[index];
+                text(element, str);
+            }
+        },
         createElement = function (name) {
             return document.createElement(name);
         },
@@ -98,6 +104,7 @@
                     text(anchor, packageName);
                     command.appendChild(anchor);
                 }
+                appendOtherCharacters(command, str)
                 commandPrompt.appendChild(command);
                 pre.parentNode.replaceChild(commandWrapper, pre);
             }
