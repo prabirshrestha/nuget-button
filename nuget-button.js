@@ -38,7 +38,13 @@
             var textNode = document.createTextNode(textContent);
             node.appendChild(textNode);
         },
-
+        appendOtherCharacters = function(element, array) {
+            for(var index = 2; index < array.length; index++)
+            {
+                var str = ' ' + array[index];
+                text(element, str);
+            }
+        },
         createElement = function (name) {
             return document.createElement(name);
         },
@@ -72,7 +78,7 @@
             for (var i = 0; i < totalButtons; ++i) {
                 var pre = buttons[i],
                     str = pre.innerHTML.split(' ');
-                if (str.length !== 2 || str[0] !== installPackageText) {
+                if (str[0] !== installPackageText) {
                     continue;
                 }
 
@@ -98,6 +104,7 @@
                     text(anchor, packageName);
                     command.appendChild(anchor);
                 }
+                appendOtherCharacters(command, str)
                 commandPrompt.appendChild(command);
                 pre.parentNode.replaceChild(commandWrapper, pre);
             }
